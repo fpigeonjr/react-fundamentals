@@ -17,10 +17,10 @@
   <!--   💰 document.getElementById('root') -->
   <!--   📜 https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/append -->
   <script type="module">
-    const div = document.createElement('div')
-    div.textContent = 'Hello World'
-    div.setAttribute('class', 'container')
-    const rootNode = document.getElementById('root')
-    rootNode.appendChild(div)
+    const rootElement = document.getElementById('root')
+    const element = document.createElement('div')
+    element.textContent = 'Hello World'
+    element.Classname = 'container'
+    rootElement.append(element)
   </script>
 </body>
