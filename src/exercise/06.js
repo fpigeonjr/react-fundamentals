@@ -1,6 +1,7 @@
 // Basic Forms
 // http://localhost:3000/isolated/exercise/06.js
 
+import {red} from 'chalk'
 import React from 'react'
 
 function UsernameForm({onSubmitUsername}) {
@@ -9,9 +10,9 @@ function UsernameForm({onSubmitUsername}) {
   // `event.preventDefault()` to prevent the default behavior of form submit
   // events (which refreshes the page).
   //
-  const handleSubmit = e => {
+  const handleSubmit = (e, isError) => {
     e.preventDefault()
-    onSubmitUsername(inputRef.current.value)
+    isError && onSubmitUsername(inputRef.current.value)
   }
   // 🐨 get the value from the username input (using whichever method
   // you prefer from the options mentioned in the instructions)
@@ -24,14 +25,35 @@ function UsernameForm({onSubmitUsername}) {
   // the input and a matching value as an `htmlFor` prop on the label.
 
   const inputRef = React.useRef(null)
+  const [username, setUsername] = React.useState(null)
+  const [isError, setIsError] = React.useState(false)
+  const [errorText, setErrorText] = React.useState('')
+
+  const handleChange = event => {
+    const value = event.target.value
+    const isValid = value === value.toLowerCase()
+    setErrorText(isValid ? null : 'Username must be lower case')
+    setIsError(!isValid && true)
+    isValid && setUsername(event.target.value)
+  }
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
+        {isError && (
+          <p style={{backgroundColor: 'red', color: 'white', padding: '.5em'}}>
+            {errorText}
+          </p>
+        )}
         <label htmlFor="username">Username:</label>
-        <input type="text" id="username" ref={inputRef} />
+        <input
+          type="text"
+          id="username"
+          ref={inputRef}
+          onChange={handleChange}
+        />
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={isError}>Submit</button>
     </form>
   )
 }
