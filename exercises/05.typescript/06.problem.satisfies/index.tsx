@@ -1,16 +1,13 @@
 import { createRoot } from 'react-dom/client'
 
 type OperationFn = (left: number, right: number) => number
-// 💣 delete the Operator type
-type Operator = '+' | '-' | '/' | '*'
-// 🦺 remove the type cast
-const operations: Record<Operator, OperationFn> = {
+// 🦺 add "satisfies" here to ensure operations satisfies a Record with string keys and OperationFn values
+const operations = {
 	'+': (left, right) => left + right,
 	'-': (left, right) => left - right,
 	'*': (left, right) => left * right,
 	'/': (left, right) => left / right,
-}
-// 🦺 add "satisfies" here to ensure operations satisfies a Record with string keys and OperationFn values
+} satisfies Record<string, OperationFn>
 
 type CalculatorProps = {
 	left?: number
