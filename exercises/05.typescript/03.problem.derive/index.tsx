@@ -4,13 +4,14 @@ const operations = {
 	'+': (left: number, right: number): number => left + right,
 	'-': (left: number, right: number): number => left - right,
 	'*': (left: number, right: number): number => left * right,
+	'**': (left: number, right: number): number => left ** right,
 	'/': (left: number, right: number): number => left / right,
 }
 
 type CalculatorProps = {
 	left: number
 	// 🐨 derive these values from the keys of the operations object
-	operator: '+' | '-' | '*' | '/'
+	operator: keyof typeof operations
 	right: number
 }
 function Calculator({ left, operator, right }: CalculatorProps) {
@@ -32,6 +33,7 @@ function App() {
 			<Calculator left={1} operator="-" right={2} />
 			<Calculator left={1} operator="*" right={2} />
 			<Calculator left={1} operator="/" right={2} />
+			<Calculator left={2} operator="**" right={3} />
 		</div>
 	)
 }
